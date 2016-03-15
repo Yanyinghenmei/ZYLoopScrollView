@@ -109,8 +109,8 @@
 }
 - (void)setImageWithUrl {
     [_leftImageView sd_setImageWithURL:[NSURL URLWithString: _imageArr[_aCount]]];
-    [_middleImageView sd_setImageWithURL:[NSURL URLWithString: _imageArr[_aCount]]];
-    [_rightImageView sd_setImageWithURL:[NSURL URLWithString: _imageArr[_aCount]]];
+    [_middleImageView sd_setImageWithURL:[NSURL URLWithString: _imageArr[_aCount+1]]];
+    [_rightImageView sd_setImageWithURL:[NSURL URLWithString: _imageArr[_aCount+2]]];
 }
 
 - (NSArray *)reSetImageArr:(NSArray *)arr {
@@ -137,7 +137,7 @@
 - (void)setTime:(NSTimeInterval)ti {
     NSTimer *scrollTimer = [NSTimer timerWithTimeInterval:ti target:self selector:@selector(timerAciton) userInfo:nil repeats:YES];
     NSRunLoop *runloop = [NSRunLoop currentRunLoop];
-    [runloop addTimer:scrollTimer forMode:NSRunLoopCommonModes];
+    [runloop addTimer:scrollTimer forMode:NSDefaultRunLoopMode];
 }
 
 - (void)timerAciton {
