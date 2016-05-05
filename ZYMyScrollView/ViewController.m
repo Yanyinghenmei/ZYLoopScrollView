@@ -24,6 +24,7 @@
     NSArray *imageArr1 = @[@"0.jpg", @"1.png", @"2.png", @"3.png", @"4.png"];
     ZYLoopScrollView *loopScrollView = [ZYLoopScrollView scrollViewWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height/2) nameArr:imageArr1];
     loopScrollView.havePageControl = YES;
+    loopScrollView.havePageControl = NO;
     [loopScrollView setTime:4];
     [self.view addSubview:loopScrollView];
     
@@ -33,6 +34,7 @@
                            @"http://img15.3lian.com/2015/f1/173/89.jpg",
                            @"http://img2.3lian.com/2014/c7/76/13.jpg"];
     ZYLoopScrollView *loopScrollView2 = [ZYLoopScrollView scrollViewWithFrame:CGRectMake(0, self.view.frame.size.height/2, self.view.frame.size.width, self.view.frame.size.height/2) urlArr:imageArr2];
+    loopScrollView2.havePageControl = NO;
     loopScrollView2.havePageControl = YES;
     loopScrollView2.subImgViewContentModel = UIViewContentModeScaleToFill;
     [loopScrollView2 setTime:7];

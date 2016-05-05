@@ -113,7 +113,16 @@
     [_rightImageView sd_setImageWithURL:[NSURL URLWithString: _imageArr[_aCount+2]]];
 }
 
+- (void)noData {
+    NSLog(@"没有数据");
+}
+
 - (NSArray *)reSetImageArr:(NSArray *)arr {
+    
+    if (!arr.count) {
+        [self noData];
+        return nil;
+    }
     NSMutableArray *newArr = arr.mutableCopy;
     [newArr addObject:arr.firstObject];
     [newArr insertObject:arr.lastObject atIndex:0];
@@ -154,17 +163,24 @@
 //
 /*––––––––––––––––––––––––––––––––––––––––––––––––––––*/
 - (void)setHavePageControl:(BOOL)havePageControl {
-    if (havePageControl&&!_pageControl) {
-        _pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y+height - 44, width, 44)];
-        _pageControl.alpha = .5;
-        _pageControl.backgroundColor = [UIColor blackColor];
-        _pageControl.numberOfPages = _imageArr.count - 2;
-        _pageControl.currentPage = 0;
-        
-        timer = [NSTimer timerWithTimeInterval:.1 target:self selector:@selector(addPageControlInSuperView) userInfo:nil repeats:YES];
-        NSRunLoop *currRL = [NSRunLoop currentRunLoop];
-        [currRL addTimer:timer forMode:NSRunLoopCommonModes];
-        [timer fire];
+    if (havePageControl) {
+        if (!_pageControl) {
+            _pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y+height - 44, width, 44)];
+            _pageControl.alpha = .5;
+            _pageControl.backgroundColor = [UIColor blackColor];
+            _pageControl.numberOfPages = _imageArr.count - 2;
+            _pageControl.currentPage = 0;
+            
+            timer = [NSTimer timerWithTimeInterval:.1 target:self selector:@selector(addPageControlInSuperView) userInfo:nil repeats:YES];
+            NSRunLoop *currRL = [NSRunLoop currentRunLoop];
+            [currRL addTimer:timer forMode:NSRunLoopCommonModes];
+            [timer fire];
+        }
+        _pageControl.hidden = NO;
+    } else if (!havePageControl) {
+        if (_pageControl) {
+            _pageControl.hidden = YES;
+        }
     }
 }
 
