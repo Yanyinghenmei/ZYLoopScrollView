@@ -25,6 +25,9 @@ typedef NS_ENUM(NSInteger, ImageArrType) {
 // 是否有小点
 @property (nonatomic, assign)BOOL havePageControl;
 
+// 替换图片
+@property (nonatomic, strong)UIImage *tempImage;
+
 // 点击回调
 @property (nonatomic, copy)void(^imageClickBlock)(NSInteger index);
 

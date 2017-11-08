@@ -130,9 +130,9 @@
     _rightImageView.image = [UIImage imageNamed:_imageArr[_aCount+2]];
 }
 - (void)setImageWithUrl {
-    [_leftImageView sd_setImageWithURL:[NSURL URLWithString: _imageArr[_aCount]]];
-    [_middleImageView sd_setImageWithURL:[NSURL URLWithString: _imageArr[_aCount+1]]];
-    [_rightImageView sd_setImageWithURL:[NSURL URLWithString: _imageArr[_aCount+2]]];
+    [_leftImageView sd_setImageWithURL:[NSURL URLWithString: _imageArr[_aCount]] placeholderImage:_tempImage?_tempImage:nil];
+    [_middleImageView sd_setImageWithURL:[NSURL URLWithString: _imageArr[_aCount+1]] placeholderImage:_tempImage?_tempImage:nil];
+    [_rightImageView sd_setImageWithURL:[NSURL URLWithString: _imageArr[_aCount+2]] placeholderImage:_tempImage?_tempImage:nil];
 }
 
 - (void)noData {
