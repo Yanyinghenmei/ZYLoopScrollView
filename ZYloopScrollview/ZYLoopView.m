@@ -1,16 +1,17 @@
 //
-//  ZYLoopScrollView.m
+//  ZYLoopView.m
 //  ZYMyScrollView
 //
-//  Created by Daniel on 16/2/22.
-//  Copyright © 2016年 Yanyinghenmei. All rights reserved.
+//  Created by WeiLuezh on 2017/11/8.
+//  Copyright © 2017年 Yanyinghenmei. All rights reserved.
 //
 
-#import "ZYLoopScrollView.h"
+#import "ZYLoopView.h"
 #import "UIImageView+WebCache.h"
 
-@interface ZYLoopScrollView ()<UIScrollViewDelegate>
+@interface ZYLoopView ()<UIScrollViewDelegate>
 
+@property (nonatomic, strong)UIScrollView *scrollView;
 @property (nonatomic, assign)ImageArrType imageArrType;
 
 @property (nonatomic, strong)NSArray *imageArr;
@@ -22,26 +23,30 @@
 @property (nonatomic, assign)int aCount;
 @end
 
-@implementation ZYLoopScrollView {
+@implementation ZYLoopView
+
+{
     CGFloat width;
     CGFloat height;
     NSTimer *timer;
 }
 
-+ (ZYLoopScrollView *)scrollViewWithFrame:(CGRect)frame nameArr:(NSArray *)nameArr {
-    ZYLoopScrollView *loopScrollView = [[ZYLoopScrollView alloc] initWithFrame:frame];
-    loopScrollView.imageArr = [loopScrollView reSetImageArr:nameArr];
-    loopScrollView.imageArrType = ImageArrTypeName;
-    [loopScrollView setImageWithName];
-    return loopScrollView;
++ (ZYLoopView *)loopViewWithFrame:(CGRect)frame nameArr:(NSArray *)nameArr {
+    
+    ZYLoopView *loopView = [[ZYLoopView alloc] initWithFrame:frame];
+    loopView.imageArr = [loopView reSetImageArr:nameArr];
+    loopView.imageArrType = ImageArrTypeName;
+    [loopView setImageWithName];
+    return loopView;
 }
 
-+ (ZYLoopScrollView *)scrollViewWithFrame:(CGRect)frame urlArr:(NSArray *)urlArr {
-    ZYLoopScrollView *loopScrollView = [[ZYLoopScrollView alloc] initWithFrame:frame];
-    loopScrollView.imageArr = [loopScrollView reSetImageArr:urlArr];
-    loopScrollView.imageArrType = ImageArrTypeUrl;
-    [loopScrollView setImageWithUrl];
-    return loopScrollView;
++ (ZYLoopView *)loopViewWithFrame:(CGRect)frame urlArr:(NSArray *)urlArr {
+    
+    ZYLoopView *loopView = [[ZYLoopView alloc] initWithFrame:frame];
+    loopView.imageArr = [loopView reSetImageArr:urlArr];
+    loopView.imageArrType = ImageArrTypeUrl;
+    [loopView setImageWithUrl];
+    return loopView;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -50,13 +55,16 @@
         width = frame.size.width;
         height = frame.size.height;
         
-        self.contentSize = CGSizeMake(width * 3, height);
-        self.contentOffset = CGPointMake(width, 0);
-        self.delegate = self;
-        self.pagingEnabled = YES;
-        self.bounces = NO;
-        self.showsHorizontalScrollIndicator = NO;
-        self.showsVerticalScrollIndicator = NO;
+        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, width, height)];
+        [self addSubview:_scrollView];
+        
+        _scrollView.contentSize = CGSizeMake(width * 3, height);
+        _scrollView.contentOffset = CGPointMake(width, 0);
+        _scrollView.delegate = self;
+        _scrollView.pagingEnabled = YES;
+        _scrollView.bounces = NO;
+        _scrollView.showsHorizontalScrollIndicator = NO;
+        _scrollView.showsVerticalScrollIndicator = NO;
         
         //设置初始图片
         _leftImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, width, height)];
@@ -67,14 +75,28 @@
         _middleImageView.contentMode = IMAGE_VIEW_CONTENT_MODEL;
         _rightImageView.contentMode = IMAGE_VIEW_CONTENT_MODEL;
         
-        [self addSubview:_leftImageView];
-        [self addSubview:_middleImageView];
-        [self addSubview:_rightImageView];
+        _leftImageView.clipsToBounds = true;
+        _middleImageView.clipsToBounds = true;
+        _rightImageView.clipsToBounds = true;
+        
+        [_scrollView addSubview:_leftImageView];
+        [_scrollView addSubview:_middleImageView];
+        [_scrollView addSubview:_rightImageView];
+        
+        _middleImageView.userInteractionEnabled = true;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(middleImageClick:)];
+        [_middleImageView addGestureRecognizer:tap];
         
         //标记最左边的图片名再数组中的index
         _aCount = 0;
     }
     return self;
+}
+
+- (void)middleImageClick:(UIGestureRecognizer *)ges {
+    if (_imageClickBlock) {
+        _imageClickBlock(_aCount);
+    }
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
@@ -150,7 +172,7 @@
 }
 
 - (void)timerAciton {
-    [self scrollRectToVisible:CGRectMake(width * 2, 0, width, height) animated:YES];
+    [_scrollView scrollRectToVisible:CGRectMake(width * 2, 0, width, height) animated:YES];
 }
 
 // 图片显示模式
@@ -165,16 +187,13 @@
 - (void)setHavePageControl:(BOOL)havePageControl {
     if (havePageControl) {
         if (!_pageControl) {
-            _pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y+height - 44, width, 44)];
+            _pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, height - 44, width, 44)];
             _pageControl.alpha = .5;
             _pageControl.backgroundColor = [UIColor blackColor];
             _pageControl.numberOfPages = _imageArr.count - 2;
             _pageControl.currentPage = 0;
             
-            timer = [NSTimer timerWithTimeInterval:.1 target:self selector:@selector(addPageControlInSuperView) userInfo:nil repeats:YES];
-            NSRunLoop *currRL = [NSRunLoop currentRunLoop];
-            [currRL addTimer:timer forMode:NSRunLoopCommonModes];
-            [timer fire];
+            [self addSubview:_pageControl];
         }
         _pageControl.hidden = NO;
     } else if (!havePageControl) {

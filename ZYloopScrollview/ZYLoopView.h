@@ -1,9 +1,9 @@
 //
-//  ZYLoopScrollView.h
+//  ZYLoopView.h
 //  ZYMyScrollView
 //
-//  Created by Daniel on 16/2/22.
-//  Copyright © 2016年 Yanyinghenmei. All rights reserved.
+//  Created by WeiLuezh on 2017/11/8.
+//  Copyright © 2017年 Yanyinghenmei. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -15,7 +15,7 @@ typedef NS_ENUM(NSInteger, ImageArrType) {
 
 #define IMAGE_VIEW_CONTENT_MODEL UIViewContentModeScaleAspectFit
 
-@interface ZYLoopScrollView : UIScrollView
+@interface ZYLoopView : UIView
 
 // 图片显示模式
 @property (nonatomic, assign)UIViewContentMode subImgViewContentModel;
@@ -25,13 +25,16 @@ typedef NS_ENUM(NSInteger, ImageArrType) {
 // 是否有小点
 @property (nonatomic, assign)BOOL havePageControl;
 
-// 显示本地图片
-+ (ZYLoopScrollView *)scrollViewWithFrame:(CGRect)frame urlArr:(NSArray *)urlArr;
+// 点击回调
+@property (nonatomic, copy)void(^imageClickBlock)(NSInteger index);
 
 // 显示网络图片
-+ (ZYLoopScrollView *)scrollViewWithFrame:(CGRect)frame nameArr:(NSArray *)nameArr;
++ (ZYLoopView *)loopViewWithFrame:(CGRect)frame urlArr:(NSArray *)urlArr;
+
+// 显示本地图片
++ (ZYLoopView *)loopViewWithFrame:(CGRect)frame nameArr:(NSArray *)nameArr;
 
 // 是否定时滚动
 - (void)setTime:(NSTimeInterval)ti;
-
 @end
+
