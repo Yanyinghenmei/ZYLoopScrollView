@@ -124,6 +124,7 @@
     [self reSetImage];
 }
 
+#pragma mark -- 显示图片
 - (void)setImageWithName {
     _leftImageView.image = [UIImage imageNamed:_imageArr[_aCount]];
     _middleImageView.image = [UIImage imageNamed:_imageArr[_aCount+1]];
@@ -139,6 +140,7 @@
     NSLog(@"没有数据");
 }
 
+#pragma mark -- 重拍数组
 - (NSArray *)reSetImageArr:(NSArray *)arr {
     
     if (!arr.count) {
@@ -151,6 +153,7 @@
     return newArr;
 }
 
+#pragma mark -- 刷新图片
 - (void)reSetImage {
     if (self.imageArrType==ImageArrTypeName) {
         [self setImageWithName];
@@ -163,8 +166,7 @@
     }
 }
 
-// 计时器
-/*––––––––––––––––––––––––––––––––––––––––––––––––––––*/
+#pragma mark -- 计时器
 - (void)setTime:(NSTimeInterval)ti {
     NSTimer *scrollTimer = [NSTimer timerWithTimeInterval:ti target:self selector:@selector(timerAciton) userInfo:nil repeats:YES];
     NSRunLoop *runloop = [NSRunLoop currentRunLoop];
@@ -175,15 +177,14 @@
     [_scrollView scrollRectToVisible:CGRectMake(width * 2, 0, width, height) animated:YES];
 }
 
-// 图片显示模式
+#pragma mark -- 图片显示模式
 - (void)setSubImgViewContentModel:(UIViewContentMode)subImgViewContentModel {
     _leftImageView.contentMode = subImgViewContentModel;
     _middleImageView.contentMode = subImgViewContentModel;
     _rightImageView.contentMode = subImgViewContentModel;
 }
 
-//
-/*––––––––––––––––––––––––––––––––––––––––––––––––––––*/
+#pragma mark -- 设置 page control
 - (void)setHavePageControl:(BOOL)havePageControl {
     if (havePageControl) {
         if (!_pageControl) {
@@ -200,13 +201,6 @@
         if (_pageControl) {
             _pageControl.hidden = YES;
         }
-    }
-}
-
-- (void)addPageControlInSuperView {
-    if (self.superview) {
-        [self.superview addSubview:_pageControl];
-        [timer invalidate];
     }
 }
 
