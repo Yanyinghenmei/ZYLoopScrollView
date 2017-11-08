@@ -8,11 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-typedef NS_ENUM(NSInteger, ImageArrType) {
-    ImageArrTypeName,
-    ImageArrTypeUrl
-};
-
 #define IMAGE_VIEW_CONTENT_MODEL UIViewContentModeScaleAspectFit
 
 @interface ZYLoopView : UIView
@@ -25,17 +20,20 @@ typedef NS_ENUM(NSInteger, ImageArrType) {
 // 是否有小点
 @property (nonatomic, assign)BOOL havePageControl;
 
-// 替换图片
-@property (nonatomic, strong)UIImage *tempImage;
-
 // 点击回调
 @property (nonatomic, copy)void(^imageClickBlock)(NSInteger index);
 
-// 显示网络图片
-+ (ZYLoopView *)loopViewWithFrame:(CGRect)frame urlArr:(NSArray *)urlArr;
 
-// 显示本地图片
-+ (ZYLoopView *)loopViewWithFrame:(CGRect)frame nameArr:(NSArray *)nameArr;
+/**
+ 工厂模式初始化轮播图
+
+ @param imageArr 源数据
+ @param block 显示图片回调
+ @return 轮播图
+ */
++ (ZYLoopView *)loopViewWithFrame:(CGRect)frame
+                         imageArr:(NSArray *)imageArr
+                        showImage:(void(^)(UIImageView *imageView, id element))block;
 
 // 是否定时滚动
 - (void)setTime:(NSTimeInterval)ti;

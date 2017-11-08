@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "ZYLoopView.h"
+#import "UIImageView+WebCache.h"
 #define selfWidth self.view.frame.size.width
 #define selfHeight self.view.frame.size.height
 @interface ViewController ()
@@ -21,7 +22,11 @@
     // 本地图片
     NSArray *imageArr1 = @[@"0", @"1", @"2", @"3", @"4"];
     
-    ZYLoopView *loopView = [ZYLoopView loopViewWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height/2) nameArr:imageArr1];
+    ZYLoopView *loopView = [ZYLoopView loopViewWithFrame:CGRectMake(0, 0, selfWidth, selfHeight/2)
+                                                imageArr:imageArr1
+                                               showImage:^(UIImageView *imageView, id element) {
+        imageView.image = [UIImage imageNamed:element];
+    }];
     loopView.havePageControl = true;
     loopView.subImgViewContentModel = UIViewContentModeScaleAspectFill;
     [loopView setTime:4];
@@ -35,9 +40,12 @@
     NSArray *imageArr2 = @[@"http://ppt360.com/background/UploadFiles_6733/201012/2010122016291897.jpg",
                            @"http://img15.3lian.com/2015/f1/173/89.jpg",
                            @"http://img2.3lian.com/2014/c7/76/13.jpg"];
-    ZYLoopView *loopView2 = [ZYLoopView loopViewWithFrame:CGRectMake(0, self.view.frame.size.height/2, self.view.frame.size.width, self.view.frame.size.height/2) urlArr:imageArr2];
+    ZYLoopView *loopView2 = [ZYLoopView loopViewWithFrame:CGRectMake(0, selfHeight/2, selfWidth, selfHeight/2)
+                                                 imageArr:imageArr2
+                                                showImage:^(UIImageView *imageView, id element) {
+        [imageView sd_setImageWithURL:[NSURL URLWithString:element] placeholderImage:nil];
+    }];
     loopView2.havePageControl = NO;
-    loopView2.havePageControl = YES;
     loopView2.subImgViewContentModel = UIViewContentModeScaleAspectFill;
     [loopView2 setTime:4];
     [self.view addSubview:loopView2];

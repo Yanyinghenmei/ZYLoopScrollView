@@ -7,18 +7,19 @@
 //
 
 #import "ZYLoopView.h"
-#import "UIImageView+WebCache.h"
+
+typedef void(^ShowImageBlock)(UIImageView *imageView, id element);
 
 @interface ZYLoopView ()<UIScrollViewDelegate>
 
 @property (nonatomic, strong)UIScrollView *scrollView;
-@property (nonatomic, assign)ImageArrType imageArrType;
-
 @property (nonatomic, strong)NSArray *imageArr;
 
 @property (nonatomic, strong)UIImageView *leftImageView;
 @property (nonatomic, strong)UIImageView *middleImageView;
 @property (nonatomic, strong)UIImageView *rightImageView;
+
+@property (nonatomic, copy)ShowImageBlock showImageBlock;
 
 @property (nonatomic, assign)int aCount;
 @end
@@ -31,21 +32,11 @@
     NSTimer *timer;
 }
 
-+ (ZYLoopView *)loopViewWithFrame:(CGRect)frame nameArr:(NSArray *)nameArr {
-    
++ (ZYLoopView *)loopViewWithFrame:(CGRect)frame imageArr:(NSArray *)imageArr showImage:(void (^)(UIImageView *, id))block {
     ZYLoopView *loopView = [[ZYLoopView alloc] initWithFrame:frame];
-    loopView.imageArr = [loopView reSetImageArr:nameArr];
-    loopView.imageArrType = ImageArrTypeName;
-    [loopView setImageWithName];
-    return loopView;
-}
-
-+ (ZYLoopView *)loopViewWithFrame:(CGRect)frame urlArr:(NSArray *)urlArr {
-    
-    ZYLoopView *loopView = [[ZYLoopView alloc] initWithFrame:frame];
-    loopView.imageArr = [loopView reSetImageArr:urlArr];
-    loopView.imageArrType = ImageArrTypeUrl;
-    [loopView setImageWithUrl];
+    loopView.imageArr = [loopView reSetImageArr:imageArr];
+    loopView.showImageBlock = block;
+    [loopView showImage];
     return loopView;
 }
 
@@ -125,15 +116,12 @@
 }
 
 #pragma mark -- 显示图片
-- (void)setImageWithName {
-    _leftImageView.image = [UIImage imageNamed:_imageArr[_aCount]];
-    _middleImageView.image = [UIImage imageNamed:_imageArr[_aCount+1]];
-    _rightImageView.image = [UIImage imageNamed:_imageArr[_aCount+2]];
-}
-- (void)setImageWithUrl {
-    [_leftImageView sd_setImageWithURL:[NSURL URLWithString: _imageArr[_aCount]] placeholderImage:_tempImage?_tempImage:nil];
-    [_middleImageView sd_setImageWithURL:[NSURL URLWithString: _imageArr[_aCount+1]] placeholderImage:_tempImage?_tempImage:nil];
-    [_rightImageView sd_setImageWithURL:[NSURL URLWithString: _imageArr[_aCount+2]] placeholderImage:_tempImage?_tempImage:nil];
+- (void)showImage {
+    if (_showImageBlock) {
+        _showImageBlock(_leftImageView, _imageArr[_aCount]);
+        _showImageBlock(_middleImageView, _imageArr[_aCount+1]);
+        _showImageBlock(_rightImageView, _imageArr[_aCount+2]);
+    }
 }
 
 - (void)noData {
@@ -155,11 +143,7 @@
 
 #pragma mark -- 刷新图片
 - (void)reSetImage {
-    if (self.imageArrType==ImageArrTypeName) {
-        [self setImageWithName];
-    } else {
-        [self setImageWithUrl];
-    }
+    [self showImage];
     
     if (_pageControl) {
         _pageControl.currentPage = _aCount;
