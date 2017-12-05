@@ -1,4 +1,4 @@
-Copyright (c) 2017 ZYLoopScrollView (https://github.com/Yanyinghenmei/ZYLoopScrollView)
+Copyright (c) 2017 ZYLoopView (https://github.com/Yanyinghenmei/ZYLooplView)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
