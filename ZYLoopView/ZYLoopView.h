@@ -35,6 +35,9 @@
                          imageArr:(NSArray *)imageArr
                         showImage:(void(^)(UIImageView *imageView, id element))block;
 
+- (void)setImageArr:(NSArray *)imageArr
+          showImage:(void(^)(UIImageView *imageView, id element))block;
+
 // 是否定时滚动
 - (void)setTime:(NSTimeInterval)ti;
 @end

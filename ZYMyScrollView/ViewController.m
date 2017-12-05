@@ -40,15 +40,16 @@
     NSArray *imageArr2 = @[@"http://ppt360.com/background/UploadFiles_6733/201012/2010122016291897.jpg",
                            @"http://img15.3lian.com/2015/f1/173/89.jpg",
                            @"http://img2.3lian.com/2014/c7/76/13.jpg"];
-    ZYLoopView *loopView2 = [ZYLoopView loopViewWithFrame:CGRectMake(0, selfHeight/2, selfWidth, selfHeight/2)
-                                                 imageArr:imageArr2
-                                                showImage:^(UIImageView *imageView, id element) {
-        [imageView sd_setImageWithURL:[NSURL URLWithString:element] placeholderImage:nil];
-    }];
+
+    ZYLoopView *loopView2 = [[ZYLoopView alloc] initWithFrame:CGRectMake(0, selfHeight/2, selfWidth, selfHeight/2)];
     loopView2.havePageControl = NO;
     loopView2.subImgViewContentModel = UIViewContentModeScaleAspectFill;
     [loopView2 setTime:4];
     [self.view addSubview:loopView2];
+    
+    [loopView2 setImageArr:imageArr2 showImage:^(UIImageView *imageView, id element) {
+        [imageView sd_setImageWithURL:[NSURL URLWithString:element]];
+    }];
 }
 
 

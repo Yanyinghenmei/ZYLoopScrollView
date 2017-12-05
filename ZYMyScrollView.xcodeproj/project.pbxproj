@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		04C728DD1FB2E71500DE7336 /* ZYLoopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C728DC1FB2E71500DE7336 /* ZYLoopView.m */; };
+		653FB9C41FD6EF5D0055FF9C /* ZYLoopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 653FB9C31FD6EF1A0055FF9C /* ZYLoopView.m */; };
 		6598C1A51C7AFA7E00CC284A /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6598C1851C7AFA7E00CC284A /* MKAnnotationView+WebCache.m */; };
 		6598C1A61C7AFA7E00CC284A /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = 6598C1871C7AFA7E00CC284A /* NSData+ImageContentType.m */; };
 		6598C1A71C7AFA7E00CC284A /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6598C1891C7AFA7E00CC284A /* SDImageCache.m */; };
@@ -44,8 +44,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		04C728DB1FB2E71500DE7336 /* ZYLoopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZYLoopView.h; sourceTree = "<group>"; };
-		04C728DC1FB2E71500DE7336 /* ZYLoopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZYLoopView.m; sourceTree = "<group>"; };
+		653FB9C21FD6EF1A0055FF9C /* ZYLoopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZYLoopView.h; sourceTree = "<group>"; };
+		653FB9C31FD6EF1A0055FF9C /* ZYLoopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZYLoopView.m; sourceTree = "<group>"; };
 		6598C1841C7AFA7E00CC284A /* MKAnnotationView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKAnnotationView+WebCache.h"; sourceTree = "<group>"; };
 		6598C1851C7AFA7E00CC284A /* MKAnnotationView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKAnnotationView+WebCache.m"; sourceTree = "<group>"; };
 		6598C1861C7AFA7E00CC284A /* NSData+ImageContentType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+ImageContentType.h"; sourceTree = "<group>"; };
@@ -112,13 +112,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6598C17C1C7AE00000CC284A /* ZYloopScrollview */ = {
+		653FB9C11FD6EF1A0055FF9C /* ZYLoopView */ = {
 			isa = PBXGroup;
 			children = (
-				04C728DB1FB2E71500DE7336 /* ZYLoopView.h */,
-				04C728DC1FB2E71500DE7336 /* ZYLoopView.m */,
+				653FB9C21FD6EF1A0055FF9C /* ZYLoopView.h */,
+				653FB9C31FD6EF1A0055FF9C /* ZYLoopView.m */,
 			);
-			path = ZYloopScrollview;
+			path = ZYLoopView;
 			sourceTree = "<group>";
 		};
 		6598C1831C7AFA7E00CC284A /* SDWebImage */ = {
@@ -164,7 +164,7 @@
 		BC33B7B91AD3D7EB00E6E7EF = {
 			isa = PBXGroup;
 			children = (
-				6598C17C1C7AE00000CC284A /* ZYloopScrollview */,
+				653FB9C11FD6EF1A0055FF9C /* ZYLoopView */,
 				6598C1831C7AFA7E00CC284A /* SDWebImage */,
 				BC33B7C41AD3D7EB00E6E7EF /* ZYMyScrollView */,
 				BC33B7DE1AD3D7EC00E6E7EF /* ZYMyScrollViewTests */,
@@ -322,6 +322,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				653FB9C41FD6EF5D0055FF9C /* ZYLoopView.m in Sources */,
 				6598C1B21C7AFA7E00CC284A /* UIImageView+HighlightedWebCache.m in Sources */,
 				6598C1B01C7AFA7E00CC284A /* UIImage+MultiFormat.m in Sources */,
 				6598C1AB1C7AFA7E00CC284A /* SDWebImageDownloaderOperation.m in Sources */,
@@ -338,7 +339,6 @@
 				6598C1A51C7AFA7E00CC284A /* MKAnnotationView+WebCache.m in Sources */,
 				6598C1A61C7AFA7E00CC284A /* NSData+ImageContentType.m in Sources */,
 				BC33B7C81AD3D7EC00E6E7EF /* main.m in Sources */,
-				04C728DD1FB2E71500DE7336 /* ZYLoopView.m in Sources */,
 				6598C1AC1C7AFA7E00CC284A /* SDWebImageManager.m in Sources */,
 				6598C1A91C7AFA7E00CC284A /* SDWebImageDecoder.m in Sources */,
 				6598C1A71C7AFA7E00CC284A /* SDImageCache.m in Sources */,

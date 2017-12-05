@@ -40,6 +40,12 @@ typedef void(^ShowImageBlock)(UIImageView *imageView, id element);
     return loopView;
 }
 
+- (void)setImageArr:(NSArray *)imageArr showImage:(void (^)(UIImageView *, id))block {
+    self.imageArr = [self reSetImageArr:imageArr];
+    self.showImageBlock = block;
+    [self showImage];
+}
+
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         
@@ -173,8 +179,6 @@ typedef void(^ShowImageBlock)(UIImageView *imageView, id element);
     if (havePageControl) {
         if (!_pageControl) {
             _pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, height - 44, width, 44)];
-            _pageControl.alpha = .5;
-            _pageControl.backgroundColor = [UIColor blackColor];
             _pageControl.numberOfPages = _imageArr.count - 2;
             _pageControl.currentPage = 0;
             
