@@ -144,6 +144,10 @@ typedef void(^ShowImageBlock)(UIImageView *imageView, id element);
     NSMutableArray *newArr = arr.mutableCopy;
     [newArr addObject:arr.firstObject];
     [newArr insertObject:arr.lastObject atIndex:0];
+    
+    if (_pageControl) {
+        _pageControl.numberOfPages = _imageArr.count - 2;
+    }
     return newArr;
 }
 
