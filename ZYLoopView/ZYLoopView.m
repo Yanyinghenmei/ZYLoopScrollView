@@ -22,6 +22,7 @@ typedef void(^ShowImageBlock)(UIImageView *imageView, id element);
 @property (nonatomic, copy)ShowImageBlock showImageBlock;
 
 @property (nonatomic, assign)int aCount;
+@property (nonatomic,strong) NSTimer *timer;
 @end
 
 @implementation ZYLoopView
@@ -29,7 +30,6 @@ typedef void(^ShowImageBlock)(UIImageView *imageView, id element);
 {
     CGFloat width;
     CGFloat height;
-    NSTimer *timer;
 }
 
 + (ZYLoopView *)loopViewWithFrame:(CGRect)frame imageArr:(NSArray *)imageArr showImage:(void (^)(UIImageView *, id))block {
@@ -146,7 +146,7 @@ typedef void(^ShowImageBlock)(UIImageView *imageView, id element);
     [newArr insertObject:arr.lastObject atIndex:0];
     
     if (_pageControl) {
-        _pageControl.numberOfPages = _imageArr.count - 2;
+        _pageControl.numberOfPages = newArr.count - 2;
     }
     return newArr;
 }
@@ -162,9 +162,13 @@ typedef void(^ShowImageBlock)(UIImageView *imageView, id element);
 
 #pragma mark -- 计时器
 - (void)setTime:(NSTimeInterval)ti {
-    NSTimer *scrollTimer = [NSTimer timerWithTimeInterval:ti target:self selector:@selector(timerAciton) userInfo:nil repeats:YES];
+    if (_timer) {
+        [_timer invalidate];
+        _timer = nil;
+    }
+    _timer = [NSTimer timerWithTimeInterval:ti target:self selector:@selector(timerAciton) userInfo:nil repeats:YES];
     NSRunLoop *runloop = [NSRunLoop currentRunLoop];
-    [runloop addTimer:scrollTimer forMode:NSDefaultRunLoopMode];
+    [runloop addTimer:_timer forMode:NSDefaultRunLoopMode];
 }
 
 - (void)timerAciton {
