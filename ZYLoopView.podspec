@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "ZYLoopView"
-  s.version      = "0.0.3"
+  s.version      = "0.0.4"
 	s.summary      = "loop scroll view."
 	s.description  = <<-DESC
 	                 Loop scroll view, local images and web image.
