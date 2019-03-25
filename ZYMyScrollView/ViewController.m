@@ -10,7 +10,7 @@
 #import "ZYLoopView.h"
 #import "UIImageView+WebCache.h"
 #define selfWidth self.view.frame.size.width
-#define selfHeight self.view.frame.size.height
+#define selfHeight (self.view.frame.size.height-50)
 @interface ViewController ()
 @end
 
@@ -44,7 +44,14 @@
     // 网络图片
     NSArray *imageArr2 = @[@"http://ppt360.com/background/UploadFiles_6733/201012/2010122016291897.jpg",
                            @"http://img15.3lian.com/2015/f1/173/89.jpg",
-                           @"http://img2.3lian.com/2014/c7/76/13.jpg"];
+                           @"http://img2.3lian.com/2014/c7/76/13.jpg",
+                           @"http://img15.3lian.com/2015/f1/173/89.jpg",
+                           @"http://img15.3lian.com/2015/f1/173/89.jpg",
+                           @"http://img2.3lian.com/2014/c7/76/13.jpg",
+                           @"http://img2.3lian.com/2014/c7/76/13.jpg",
+                           @"http://img2.3lian.com/2014/c7/76/13.jpg",
+                           @"http://img2.3lian.com/2014/c7/76/13.jpg",
+                           @"http://img2.3lian.com/2014/c7/76/13.jpg",];
 
     ZYLoopView *loopView2 = [[ZYLoopView alloc] initWithFrame:CGRectMake(0, selfHeight/2, selfWidth, selfHeight/2)];
     loopView2.havePageControl = true;
@@ -57,13 +64,11 @@
     }];
     
     // 重置
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(20 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
         NSArray *imageArr2 = @[@"http://ppt360.com/background/UploadFiles_6733/201012/2010122016291897.jpg",
-                               @"http://img15.3lian.com/2015/f1/173/89.jpg",
-                               @"http://img2.3lian.com/2014/c7/76/13.jpg",
-                               @"http://img15.3lian.com/2015/f1/173/89.jpg",
-                               @"http://img15.3lian.com/2015/f1/173/89.jpg"];
+                      @"http://img15.3lian.com/2015/f1/173/89.jpg",
+                      @"http://img2.3lian.com/2014/c7/76/13.jpg"];
         
         [loopView2 setImageArr:imageArr2 showImage:^(UIImageView *imageView, id element) {
             [imageView sd_setImageWithURL:[NSURL URLWithString:element]];

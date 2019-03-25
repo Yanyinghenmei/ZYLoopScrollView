@@ -141,6 +141,8 @@ typedef void(^ShowImageBlock)(UIImageView *imageView, id element);
         [self noData];
         return nil;
     }
+    _aCount = 0;
+    if (_pageControl) _pageControl.currentPage = _aCount;
     NSMutableArray *newArr = arr.mutableCopy;
     [newArr addObject:arr.firstObject];
     [newArr insertObject:arr.lastObject atIndex:0];
